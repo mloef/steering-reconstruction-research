@@ -4,6 +4,8 @@ This repository contains research on analyzing and manipulating steering vectors
 
 ## Overview
 
+Across five notebooks, I first set out to improve CAA steering vectors, then dig into the nature and implications of poor SAE reconstruction (but good interpretability!) of steering vectors. I include on extra notebook - the base_notebook - that all the others are based on.
+
 In the first notebook, I develop a method for creating CAA steering vectors more quickly, with less data, and with similar or superior quality. In the second notebook, I compare mean and PCA aggregation methods for creating CAA steering vectors, and surprisingly find that they extract nearly identical steering vectors.
 
 In the third notebook, I investigate the poor SAE reconstruction of CAA steering vectors. I hypothesize that it is due to the SAE's inability to represent the steering vector, I test this hypothesis by creating a CAA steering vector from an SAE feature, and I reject it. The fourth notebook tracks differences in steering vector latents across multiple SAE decodings, search for a pattern to explain the poor reconstruction, and doesn't find anything interesting; I include it as an example of negative results.
