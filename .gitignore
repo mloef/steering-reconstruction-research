@@ -1,0 +1,5 @@
+/hf
+/.venv
+git-id.sh
+__pycache__/
+.env
