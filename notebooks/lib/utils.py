@@ -783,3 +783,31 @@ def extract_caa_direction_from_pair(model, pos_tokens, neg_tokens, layer):
         pos_vector = pos_vector / torch.norm(pos_vector)
 
     return pos_vector
+
+def check_activation_stats(sae, activations):
+    mean_l0 = 0
+    mean_error_norm_percent = 0
+
+    for activation in activations:
+        # get latents for caa vector
+        activation = activation.unsqueeze(0)
+        sae_features = sae.encode(activation)
+        sae_decoded = sae.decode(sae_features)
+        sae_error = activation - sae_decoded
+        sae_features = sae_features / torch.norm(sae_features)
+
+        error_norm_percent = torch.norm(sae_error) / torch.norm(activation) * 100
+
+        mean_error_norm_percent += error_norm_percent
+
+
+        sae_features = sae_features[0].detach().cpu().float().numpy()
+        # Find all features with significant activation
+        significant_indices = np.where(np.abs(sae_features) > 0)[0]
+        mean_l0 += len(significant_indices)
+
+    mean_error_norm_percent /= len(activations)
+    mean_l0 /= len(activations)
+
+    print(f"Mean error norm as a percentage of the original activation norm: {mean_error_norm_percent:.3f}")
+    print(f"Mean L0: {mean_l0:.3f}")

@@ -24,7 +24,7 @@ class ObservableLanguageModel:
         )
 
         # Quickly run a trace to force model to download due to nnsight lazy download
-        input_tokens = self._model.tokenizer.apply_chat_template([{"role": "user", "content": "hello"}])
+        input_tokens = self._model.tokenizer.encode("hello") # don't use chat template so we can support base models
         with self._model.trace(input_tokens):
           pass
 
