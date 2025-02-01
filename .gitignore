@@ -3,3 +3,4 @@
 git-id.sh
 __pycache__/
 .env
+.DS_Store
